@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HousingLocationComponent } from '../housing-location/housing-location.component';
+import { HousingService } from '../housing.service';
 import { Housinglocation } from '../housinglocation';
 
 @Component({
@@ -15,21 +16,20 @@ import { Housinglocation } from '../housinglocation';
       </form>
     </section>
     <section class="results">
-      <app-housing-location></app-housing-location>
+      <!-- property binding to a component tag [...]="value" -->
+      <app-housing-location
+        *ngFor="let housingLocation of housingLocation"
+        [housingLocation]="housingLocation"
+      ></app-housing-location>
     </section>
   `,
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  // create a single instance of the new interface in the component.
-  housingLocation: Housinglocation = {
-    id: 9999,
-    name: 'Test Home',
-    city: 'Test city',
-    state: 'ST',
-    photo: 'assets/example-house.jpg',
-    availableUnits: 99,
-    wifi: true,
-    laundry: false,
-  };
+  housingLocation: Housinglocation[] = [];
+  housingService: HousingService = inject(HousingService);
+
+  constructor() {
+    this.housingLocation = this.housingService.getAllHousingLocations();
+  }
 }
