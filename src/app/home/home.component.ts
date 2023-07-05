@@ -6,12 +6,13 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <p>
-      home works!
-    </p>
+    <section>
+      <form class="form-search" method="get" action="#">
+        <input type="text" placeholder="Filter by city" />
+        <button type="button">Search By City</button>
+      </form>
+    </section>
   `,
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {
-
-}
+export class HomeComponent {}
