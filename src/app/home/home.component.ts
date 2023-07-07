@@ -39,9 +39,14 @@ export class HomeComponent {
   housingLocation: Housinglocation[] = [];
   housingService: HousingService = inject(HousingService);
 
+  // use async version of the getAllHousingLocations function
   constructor() {
-    this.housingLocation = this.housingService.getAllHousingLocations();
-    this.filteredLocationList = this.housingLocation;
+    this.housingService
+      .getAllHousingLocations()
+      .then((housingLocationList: Housinglocation[]) => {
+        this.housingLocation = housingLocationList;
+        this.filteredLocationList = housingLocationList;
+      });
   }
 
   filterResults(text: string) {
